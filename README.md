@@ -15,3 +15,4 @@ If you'd like to contribute to MiniNanoShell, fork the repository, make your cha
 
 ## NanoShell
 You can get the full version of NanoShell [here](https://github.com/Dv5n/NanoShell).
+Or why not use this more minimal version of NanoShell.
