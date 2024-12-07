@@ -9,13 +9,13 @@ MAIN_CLASS=com.HappyCow.NanoShell.NanoShell
 
 .PHONY: build run runJar clean
 
-build: $(CLASS)
+build:
 	@$(info Compiling NanoShell and building JAR...)
-	@$(JAVAC) $(M_PATH)/NanoShell/*.java
+	@$(JAVAC) $(M_PATH)/MiniNanoShell/*.java
 
 	@jar cfe NanoShell.jar \
-	$(M_PATH)/NanoShell/NanoShell \
-	$(M_PATH)/NanoShell/*.class \
+	$(M_PATH)/MiniNanoShell/MiniNanoShell \
+	$(M_PATH)/MiniNanoShell/*.class \
 	$(M_PATH)/ShellUtilities/*.class
 
 run:

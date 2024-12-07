@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import com.HappyCow.NanoShell.NanoShell;
+import com.HappyCow.MiniNanoShell.MiniNanoShell;
 
 /**
 * FolderManagement class, for creating or removing files or folders.
@@ -23,7 +23,7 @@ public class ShellUtilities
 	*/
 	public static void rm(String filename)
 	{
-		File file = new File(NanoShell.getCurrentDir(), filename);
+		File file = new File(MiniNanoShell.getCurrentDir(), filename);
 		if (file.exists() && file.isFile())
 		{
 			if (!file.delete())
@@ -44,7 +44,7 @@ public class ShellUtilities
 	*/
 	public static void mkdir(String dirname)
 	{
-		File dir = new File(NanoShell.getCurrentDir(), dirname);
+		File dir = new File(MiniNanoShell.getCurrentDir(), dirname);
 		if (!dir.mkdir())
 		{
 			System.out.println("Failed to create directory or it already exists.");
@@ -58,7 +58,7 @@ public class ShellUtilities
 	*/
 	public static void rmdir(String dirname)
 	{
-		File dir = new File(NanoShell.getCurrentDir(), dirname);
+		File dir = new File(MiniNanoShell.getCurrentDir(), dirname);
 		if (dir.exists() && dir.isDirectory())
 		{
 			if (!dir.delete())
@@ -79,7 +79,7 @@ public class ShellUtilities
 	*/
 	public static void cat(String filename)
 	{
-		File file = new File(NanoShell.getCurrentDir(), filename);
+		File file = new File(MiniNanoShell.getCurrentDir(), filename);
 		if (file.exists() && file.isFile())
 		{
 			try (Scanner fileScanner = new Scanner(file))
@@ -109,7 +109,7 @@ public class ShellUtilities
 	*/
 	public static void list(String path)
 	{
-		File directory = path.isEmpty() ? NanoShell.getCurrentDir() : new File(NanoShell.getCurrentDir(), path);
+		File directory = path.isEmpty() ? MiniNanoShell.getCurrentDir() : new File(MiniNanoShell.getCurrentDir(), path);
 
 		if (!directory.exists() || !directory.isDirectory())
 		{

@@ -16,7 +16,7 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-package com.HappyCow.NanoShell;
+package com.HappyCow.MiniNanoShell;
 
 import java.util.Scanner; // Import for running commands.
 import java.io.File; // Import for files and directories management.
@@ -27,19 +27,17 @@ import com.HappyCow.ShellUtilities.ShellUtilities; // For shell utilities.
 /**
 * Main class.
 */
-public class NanoShell
+public class MiniNanoShell
 {
-	private final String helpPrefix = "+-------------------------------------------+";
-
 	private static File currentDirectory = new File(System.getProperty("user.dir"));
 
-	public final String version = "(0.7)custom_0.1";
+	public final String version = "0.1.1";
 	public final String promptColor = "\033[32m"; // Green.
 	public static File getCurrentDir() {return currentDirectory;}
 
 	public static void main(String[] args)
 	{
-		new NanoShell().runShell("HappyCow: "); // Run the shell with the specified prompt.
+		new MiniNanoShell().runShell("HappyCow :-) "); // Run the shell with the specified prompt.
 	}
 
 	/**
@@ -47,26 +45,25 @@ public class NanoShell
 	*/
 	public void runShell(String prompt)
 	{
-		try(final Scanner cmdScanner = new Scanner(System.in))
+		final Scanner cmdScanner = new Scanner(System.in);
+		while (true)
 		{
-			while (true)
+			System.out.print(promptColor+prompt+"\033[0m");
+			final String cmd = cmdScanner.nextLine().trim();
+
+			if (cmd.isEmpty())
 			{
-				System.out.print(promptColor+prompt+"\033[0m");
-				final String cmd = cmdScanner.nextLine().trim();
-
-				if (cmd.isEmpty())
-				{
-					continue;
-				}
-
-				else if (cmd.equals("exit"))
-				{
-					System.out.println("Exiting now... Be happy :-)");
-					break;
-				}
-				executeCommand(cmd);
+				continue;
 			}
+
+			else if (cmd.equals("exit"))
+			{
+				System.out.println("Exiting now... Be happy :-)");
+				break;
+			}
+			executeCommand(cmd);
 		}
+		cmdScanner.close();
 	}
 
 	/**
@@ -74,6 +71,20 @@ public class NanoShell
 	*/
 	private void executeCommand(String cmd)
 	{
+		if (cmd.contains("&&"))
+		{
+			String[] commands = cmd.split("&&");
+			for (String singleCommand : commands)
+			{
+				singleCommand = singleCommand.trim();
+				if (!singleCommand.isEmpty())
+				{
+					executeCommand(singleCommand);
+				}
+			}
+			return;
+		}
+
 		if (cmd.contains(" "))
 		{
 			String[] cmdParts = cmd.split(" ", 2);
@@ -117,7 +128,7 @@ public class NanoShell
 		{
 			case "help":
 				// Using just one call to "System.out.println(...);" for efficiency.
-				System.out.println(helpPrefix+"\n+ MiniNanoShell, version: "+version+"\n"+helpPrefix+
+				System.out.println("MiniNanoShell, version: "+version+
 					"\n(Note: (o) = Optional argument)\n"+
 					"Commands:\n"+
 					"1. exit - Exits the shell.\n"+
